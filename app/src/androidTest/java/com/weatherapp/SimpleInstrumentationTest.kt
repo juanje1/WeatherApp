@@ -18,6 +18,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.junit.Rule
 import org.junit.Test
+import java.lang.Thread.sleep
 
 class SimpleInstrumentationTest {
 
@@ -25,6 +26,7 @@ class SimpleInstrumentationTest {
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test fun itemClickNavigatesToDetails() {
+        sleep(3000)
         onView(withId(R.id.forecastList)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
         onView(withId(R.id.weatherDescription))
@@ -36,6 +38,7 @@ class SimpleInstrumentationTest {
         onView(withText(R.string.settings)).perform(click())
         onView(withId(R.id.cityCode)).perform(replaceText("28806"))
         pressBack()
+        sleep(3000)
         onView(isAssignableFrom(Toolbar::class.java))
             .check(matches(withToolbarTitle(`is`("Alcalá de Henares (ES)"))))
     }
